@@ -1,0 +1,68 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.loginPage{
+    background-image: url(https://res.cloudinary.com/dafmi9027/image/upload/v1728211153/mall-america-scenes-cinematic-style_epgr4i.jpg);
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginBox{
+    background-color: white;
+    height: 300px;
+    width: 400px;
+    border-radius: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    margin: 20px;
+    
+}
+
+@media (max-width:768px) {
+    .loginBox{
+        height: 300px;
+        width: 300px;
+    }
+}
+
+.loginBox form{
+    width: 100%;
+}
+
+
+.loginBox input{
+    height: 35px;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 3px;
+    outline: none;
+}
+
+.loginBox select{
+    height: 35px;
+    width: 100%;
+    outline: none;
+}
+
+.loginBox label{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.loginBox button{
+    height: 40px;
+    width: 120px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    margin-top: 10px;
+    align-self: center;
+}
