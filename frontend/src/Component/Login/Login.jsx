@@ -24,7 +24,9 @@ const Login = () => {
         .then((response) =>{
                 {notify(response.data.message)};
                 Cookies.set('jwt_token', response.data.jwt_token, { expires: 1 });
+                Cookies.set("user",account,{expires:1})
                 window.location.href = "/"
+
 
         })
         .catch((error) => {

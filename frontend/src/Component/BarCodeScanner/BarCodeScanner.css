@@ -1,0 +1,8 @@
+.codeScannerDiv{
+    display: flex;
+    flex-direction: column;
+}
+
+.codeScannerDiv button{
+    align-self: flex-start;
+}

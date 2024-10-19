@@ -1,0 +1,18 @@
+.arrangeHeadBody{
+    display: flex;
+}
+
+.bodyPart{
+    padding: 20px;
+    width: 100%;
+  
+}
+.body-part-dashboard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    height: 90%;
+    width: 100%;
+}

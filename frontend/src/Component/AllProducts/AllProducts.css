@@ -1,0 +1,48 @@
+.body-part-allProducts{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    padding: 20px;
+}
+
+table, th, td {
+    border:1px solid black;
+  }
+
+  /* AllProducts.css */
+
+table {
+    width: 80%;
+    margin: 0 auto; /* Center the table horizontally */
+    border-collapse: collapse; /* Remove spacing between table cells */
+  }
+@media (max-width:768px) {
+  .table{
+    width: auto;
+  }
+}
+  
+  th, td {
+    text-align: center; /* Center the content horizontally */
+    vertical-align: middle; /* Center the content vertically */
+    padding: 10px; /* Add some padding for better readability */
+    border: 1px solid #ddd; /* Optional: Add borders to the table cells */
+  }
+  
+  thead {
+    background-color: #f2f2f2; /* Optional: Add background to the header */
+  }
+  
+  img {
+    display: block;
+    margin: 0 auto; /* Center images horizontally */
+  }
+  
+  .button-in-table {
+    margin: 0 auto; /* Center the button horizontally */
+    display: block;
+    
+  }
+  
+
