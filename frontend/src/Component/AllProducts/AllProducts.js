@@ -4,8 +4,6 @@ import Cookies from "js-cookie";
 import React, { useEffect, useRef, useState } from "react";
 import Barcode from "react-barcode";
 import toast, { Toaster } from 'react-hot-toast';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import "./AllProducts.css";
 
 const AllProducts = () => {
@@ -20,7 +18,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  });
 
   const fetchProducts = () => {
     axios.get('http://localhost:5000/allProducts')
@@ -92,10 +90,6 @@ const AllProducts = () => {
     }
   };
 
-  const modalOn = (id) => {
-      
-  }
-  
 
   if (check === "Admin") {
     return (

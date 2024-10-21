@@ -1,5 +1,5 @@
 import "./BarCodeScanner.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Cookies from "js-cookie";
 import Header from "../Header/Header";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
@@ -11,7 +11,7 @@ const BarCodeScanner = () => {
   const isAdmin = Cookies.get("user");
   const [scannedData, setScannedData] = useState(""); // For storing scanned barcode
   const [cameraMode, setCameraMode] = useState("environment"); // Toggle between front and back camera
-  const [product, setProduct] = useState(null); // Store the scanned product
+  
 
   console.log("Current scanned data:", scannedData);
 
@@ -38,7 +38,7 @@ const BarCodeScanner = () => {
       console.log("neee",fetchedProduct)// Assuming the product data is returned directly
 
       if (fetchedProduct && fetchedProduct.product_id) {
-        setProduct(fetchedProduct); // Set the fetched product to state
+        // Set the fetched product to state
 
         // Send product data to cart
         await axios.post("http://localhost:5000/addToCart", { data: fetchedProduct.product_id }) // Send the product ID directly

@@ -8,7 +8,7 @@ const Login = () => {
 
     const [userName,setUserName] = useState("")
     const [password,setPassword] = useState("")
-    const [error, setError] = useState(false)
+   
     const [account,setAccount] = useState("Admin")
     const notify = (msg) => toast.success(msg)
     const notifyError = (msg) => toast.error(msg)
@@ -21,18 +21,16 @@ const Login = () => {
             "password":password,
             "user":account
         })
-        .then((response) =>{
-                {notify(response.data.message)};
-                Cookies.set('jwt_token', response.data.jwt_token, { expires: 1 });
-                Cookies.set("user",account,{expires:1})
-                window.location.href = "/"
-
-
+        .then((response) => {
+            notify(response.data.message);
+            Cookies.set('jwt_token', response.data.jwt_token, { expires: 1 });
+            Cookies.set("user", account, { expires: 1 });
+            window.location.href = "/";
         })
         .catch((error) => {
-            {notifyError(error.response.data)}
-            console.log(error.response.data)
-        })
+            notifyError(error.response.data);
+            console.log(error.response.data);
+        });
     
     
     }

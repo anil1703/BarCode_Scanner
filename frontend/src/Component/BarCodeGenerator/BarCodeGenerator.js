@@ -16,7 +16,6 @@ const BarCodeGenerator = () => {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
   const [price,setPrice] = useState("")
   const notify = (msg) => toast.success(msg)
   const notifyError = (msg) => toast.error(msg)

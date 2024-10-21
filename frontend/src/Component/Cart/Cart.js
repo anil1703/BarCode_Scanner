@@ -15,7 +15,7 @@ const Cart = () => {
   useEffect(() => {
     fetchProducts(); // Fetch all products
     fetchCart(); // Fetch cart items
-  }, []); // Empty dependency array to fetch once when component mounts
+  }); // Empty dependency array to fetch once when component mounts
 
   const fetchProducts = () => {
     axios
