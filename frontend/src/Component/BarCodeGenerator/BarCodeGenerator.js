@@ -64,7 +64,7 @@ const BarCodeGenerator = () => {
         };
 
         // Send data to backend
-        await axios.post("http://localhost:5000/barcodeGenerator", data);
+        await axios.post("https://joyful-yeot-66133c.netlify.app/.netlify/functions/api/barcodeGenerator", data);
         notify("Barcode generated and product saved successfully!");
 
         // Reset the form

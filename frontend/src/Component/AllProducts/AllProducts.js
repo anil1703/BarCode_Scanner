@@ -1,7 +1,7 @@
 import Header from "../Header/Header";
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState,useCallback } from "react";
 import Barcode from "react-barcode";
 import toast, { Toaster } from 'react-hot-toast';
 import "./AllProducts.css";
@@ -16,12 +16,8 @@ const AllProducts = () => {
   const notify = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
 
-  useEffect(() => {
-    fetchProducts();
-  });
-
-  const fetchProducts = () => {
-    axios.get('http://localhost:5000/allProducts')
+  const fetchProducts = useCallback(() => {
+    axios.get('https://joyful-yeot-66133c.netlify.app/.netlify/functions/api/allProducts')
       .then((response) => {
         setAllProducts(response.data.data);
         notify("Products fetched successfully");
@@ -29,7 +25,11 @@ const AllProducts = () => {
       .catch((error) => {
         notifyError("There is an issue while fetching the products");
       });
-  };
+  }, []);
+  
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   // Filter products based on search term (checking both product_id and name)
   const filteredProducts = allProducts.filter(product =>
@@ -44,7 +44,7 @@ const AllProducts = () => {
   const deletingProduct = (id) => {
     const confirmed = window.confirm("Are you sure you want to delete this product?");
     if (confirmed) {
-      axios.delete(`http://localhost:5000/deleteProduct/${id}`)
+      axios.delete(`https://joyful-yeot-66133c.netlify.app/.netlify/functions/api/deleteProduct/${id}`)
         .then(() => {
           notify("Product deleted successfully");
           // Update state to remove the deleted product

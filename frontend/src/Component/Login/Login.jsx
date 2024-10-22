@@ -16,7 +16,7 @@ const Login = () => {
     const submitting =  (e) => {
         e.preventDefault()
 
-        axios.post("http://localhost:5000/login",{
+        axios.post("https://joyful-yeot-66133c.netlify.app/.netlify/functions/api/login",{
             "username":userName,
             "password":password,
             "user":account

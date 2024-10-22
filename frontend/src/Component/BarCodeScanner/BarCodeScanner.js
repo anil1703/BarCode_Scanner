@@ -11,7 +11,7 @@ const BarCodeScanner = () => {
   const isAdmin = Cookies.get("user");
   const [scannedData, setScannedData] = useState(""); // For storing scanned barcode
   const [cameraMode, setCameraMode] = useState("environment"); // Toggle between front and back camera
-  
+  const [processing, setProcessing] = useState(false); // Prevent multiple scans at once
 
   console.log("Current scanned data:", scannedData);
 
@@ -33,15 +33,13 @@ const BarCodeScanner = () => {
     console.log("Scanned barcode:", trimmedData); // Log the scanned barcode
 
     try {
-      const response = await axios.get(`http://localhost:5000/getByBArCode/${trimmedData}`);
+      const response = await axios.get(`https://joyful-yeot-66133c.netlify.app/.netlify/functions/api/getByBArCode/${trimmedData}`);
       const fetchedProduct = response.data.data; 
-      console.log("neee",fetchedProduct)// Assuming the product data is returned directly
+      console.log("neee",fetchedProduct); // Assuming the product data is returned directly
 
       if (fetchedProduct && fetchedProduct.product_id) {
-        // Set the fetched product to state
-
         // Send product data to cart
-        await axios.post("http://localhost:5000/addToCart", { data: fetchedProduct.product_id }) // Send the product ID directly
+        await axios.post("https://joyful-yeot-66133c.netlify.app/.netlify/functions/api/addToCart", { data: fetchedProduct.product_id }) // Send the product ID directly
           .then((response) => {
             console.log(response);
             if (response.status === 200) {
@@ -59,6 +57,8 @@ const BarCodeScanner = () => {
     } catch (error) {
       console.error("Error fetching product:", error);
       notifyError("Error fetching product data");
+    } finally {
+      setProcessing(false); // Allow scanning again after processing
     }
   };
 
@@ -86,9 +86,11 @@ const BarCodeScanner = () => {
                     width={400}
                     height={300}
                     onUpdate={(error, result) => {
-                      if (result) {
+                      if (result && !processing) {
+                        playSound();
+                        setProcessing(true); // Disable further scans while processing
                         setScannedData(result.text); // Update scanned data
-                        playSound(); // Play sound on successful scan
+                         // Play sound on successful scan
                         addToCart(result.text); // Add product to cart
                       }
                     }}

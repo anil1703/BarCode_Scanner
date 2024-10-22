@@ -1,7 +1,7 @@
 import  {userDb}  from "../Modal/userModal.js";
 import { barCodeGenDb } from "../Modal/barCodeGeneratorModal.js";
 import { cartDb } from "../Modal/cartModal.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
 

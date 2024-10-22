@@ -1,7 +1,7 @@
 import "./Cart.css";
 import Cookies from "js-cookie";
 import Header from "../Header/Header";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -11,38 +11,39 @@ const Cart = () => {
   const notify = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
 
-  // Fetch cart and products data on component mount
-  useEffect(() => {
-    fetchProducts(); // Fetch all products
-    fetchCart(); // Fetch cart items
-  }); // Empty dependency array to fetch once when component mounts
-
-  const fetchProducts = () => {
+  // Fetch all products
+  const fetchProducts = useCallback(() => {
     axios
-      .get("http://localhost:5000/allProducts")
+      .get("https://joyful-yeot-66133c.netlify.app/.netlify/functions/api/allProducts")
       .then((response) => {
         setAllProducts(response.data.data); // Store all products
       })
       .catch((error) => {
         notifyError("Error fetching products");
       });
-  };
+  }, []); // Empty array ensures fetchProducts doesn't change between renders
 
-  const fetchCart = () => {
+  // Fetch cart items
+  const fetchCart = useCallback(() => {
     axios
-      .get("http://localhost:5000/cart")
+      .get("https://joyful-yeot-66133c.netlify.app/.netlify/functions/api/cart")
       .then((response) => {
         setCart(response.data.data); // Store cart items
       })
       .catch((error) => {
         notifyError("Error fetching cart");
       });
-  };
+  }, []); // Empty array ensures fetchCart doesn't change between renders
+
+  useEffect(() => {
+    fetchProducts(); // Fetch all products
+    fetchCart(); // Fetch cart items
+  }, [fetchProducts, fetchCart]); // Dependencies to ensure useEffect doesn't rerun unnecessarily
 
   // Function to delete a product from the cart
   const deletingProductfromCart = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/deleteItemFromCart/${id}`);
+      await axios.delete(`https://joyful-yeot-66133c.netlify.app/.netlify/functions/api/deleteItemFromCart/${id}`);
       notify("Deleted one item from cart");
       // Remove the item from the cart state after successful deletion
       setCart(cart.filter((product) => product._id !== id));
@@ -70,7 +71,7 @@ const Cart = () => {
   // Delete all items in the cart
   const deleteAllItemsInCart = () => {
     axios
-      .delete("http://localhost:5000/deleteAllItemsInCart")
+      .delete("https://joyful-yeot-66133c.netlify.app/.netlify/functions/api/deleteAllItemsInCart")
       .then(() => {
         setCart([]);
         notify("All items deleted from cart");
@@ -105,9 +106,7 @@ const Cart = () => {
                   </thead>
                   <tbody>
                     {cart.map((cartItem, index) => {
-                      const productDetails = getProductDetails(
-                        cartItem.product_id
-                      );
+                      const productDetails = getProductDetails(cartItem.product_id);
                       return productDetails ? (
                         <tr key={index}>
                           <td>{productDetails.product_id}</td>
